@@ -46,6 +46,7 @@ for (i in 1:length(pabrv)){
 #select only west and east coast data and provide summary stats and pie charts ####
 dpsel<-subset(dp, dp$Province_short=="BC"|dp$Province_short=="NB"|dp$Province_short=="NS"|dp$Province_short=="QC"|dp$Province_short=="NL")
 
+
 #remove zero degree of protection values associated with buoys
 dpsel<-subset(dpsel,dpsel$Degree_of_Protection>0)
 dpsel$Coast<-ifelse(dpsel$Province_short=="BC","West","East")
