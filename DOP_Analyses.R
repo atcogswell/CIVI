@@ -23,7 +23,7 @@ for (i in 3:7){
 }
 
 #rename the fields
-names(dp)<-c("Harbour_Name", "Province", "Harbour_Codee", "Degree_of_Protection") 
+names(dp)<-c("Harbour_Name", "Province", "Harbour_Code", "Degree_of_Protection") 
 
 # create another Province field to house the shorted code for province for anlaysis
 dp$Province_short<-dp$Province 
