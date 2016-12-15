@@ -1,5 +1,5 @@
 #Install packages and libraries ####
-install.packages("xlsx") 
+install.packages("xlsx")
 library(xlsx)
 
 #Set working directory ####
@@ -54,6 +54,13 @@ dpsel$Coast<-as.factor(dpsel$Coast)
 by(dpsel$Degree_of_Protection,dpsel$Province_short,summary)
 by(dpsel$Degree_of_Protection,dpsel$Coast,summary)
 
+#Note differences in regional distribution curves
+west<-subset(dpsel, dpsel$Coast=="West")
+hist(testw$Degree_of_Protection)
+
+east<-subset(dpsel, dpsel$Coast=="East")
+hist(teste$Degree_of_Protection)
+
 # Pie Chart from data frame with Appended Sample Sizes and percentages for the east and west coasts ####
 westtab<-table(subset(dpsel$Degree_of_Protection,dpsel$Coast=="West"))
 pct <- round(westtab/sum(westtab)*100)
@@ -75,3 +82,5 @@ martab<-table(subset(dp$Degree_of_Protection,dpsel$Province_short=="NS"|dpsel$Pr
 pct <- round(martab/sum(martab)*100)
 marlbls <- paste("DOP = ",names(martab), "\n", "Count = ",martab," or ", pct, "%", sep="")
 pie(martab, labels = marlbls, main=paste("Pie Chart of Maritimes Degree of Protection\n (with sample sizes and percentages)","\n","n = ", sum(martab),sep=""))
+
+
