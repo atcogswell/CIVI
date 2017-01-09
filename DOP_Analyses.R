@@ -1,6 +1,7 @@
 #Install packages and libraries ####
 install.packages("xlsx")
 library(xlsx)
+library(dplyr)
 
 #Set working directory ####
 setwd("C:/Users/CogswellA/Documents/AZMP/Coastal Vulnerability Index/2017")
@@ -56,10 +57,10 @@ by(dpsel$Degree_of_Protection,dpsel$Coast,summary)
 
 #Note differences in regional distribution curves
 west<-subset(dpsel, dpsel$Coast=="West")
-hist(testw$Degree_of_Protection)
+hist(west$Degree_of_Protection)
 
 east<-subset(dpsel, dpsel$Coast=="East")
-hist(teste$Degree_of_Protection)
+hist(east$Degree_of_Protection)
 
 # Pie Chart from data frame with Appended Sample Sizes and percentages for the east and west coasts ####
 westtab<-table(subset(dpsel$Degree_of_Protection,dpsel$Coast=="West"))
@@ -78,9 +79,26 @@ pct <- round(NLtab/sum(NLtab)*100)
 NLlbls <- paste("DOP = ",names(NLtab), "\n", "Count = ",NLtab," or ", pct, "%", sep="")
 pie(NLtab, labels = NLlbls, main=paste("Pie Chart of NL Degree of Protection\n (with sample sizes and percentages)","\n","n = ", sum(NLtab),sep=""))
 
-martab<-table(subset(dp$Degree_of_Protection,dpsel$Province_short=="NS"|dpsel$Province_short=="NB"|dpsel$Province_short=="PE"|dpsel$Province_short=="QC"))
+NStab<-table(subset(dpsel$Degree_of_Protection,dpsel$Province_short=="NS"))
+pct <- round(NStab/sum(NStab)*100)
+NSlbls <- paste("DOP = ",names(NStab), "\n", "Count = ",NStab," or ", pct, "%", sep="")
+pie(NStab, labels = NSlbls, main=paste("Pie Chart of NS Degree of Protection\n (with sample sizes and percentages)","\n","n = ", sum(NStab),sep=""))
+
+QCtab<-table(subset(dpsel$Degree_of_Protection,dpsel$Province_short=="QC"))
+pct <- round(QCtab/sum(QCtab)*100)
+QClbls <- paste("DOP = ",names(QCtab), "\n", "Count = ",QCtab," or ", pct, "%", sep="")
+pie(QCtab, labels = QClbls, main=paste("Pie Chart of QC Degree of Protection\n (with sample sizes and percentages)","\n","n = ", sum(QCtab),sep=""))
+
+NBtab<-table(subset(dpsel$Degree_of_Protection,dpsel$Province_short=="NB"))
+pct <- round(NBtab/sum(NBtab)*100)
+NBlbls <- paste("DOP = ",names(NBtab), "\n", "Count = ",NBtab," or ", pct, "%", sep="")
+pie(NBtab, labels = NBlbls, main=paste("Pie Chart of NB Degree of Protection\n (with sample sizes and percentages)","\n","n = ", sum(NBtab),sep=""))
+
+martab<-table(subset(dpsel$Degree_of_Protection,dpsel$Province_short=="NS"|dpsel$Province_short=="NB"|dpsel$Province_short=="PE"|dpsel$Province_short=="QC"))
 pct <- round(martab/sum(martab)*100)
 marlbls <- paste("DOP = ",names(martab), "\n", "Count = ",martab," or ", pct, "%", sep="")
 pie(martab, labels = marlbls, main=paste("Pie Chart of Maritimes Degree of Protection\n (with sample sizes and percentages)","\n","n = ", sum(martab),sep=""))
 
+#export these combined data to csv if you choose ####
+write.csv(dpsel, "CIVIDegreeofProtectioneast_west.csv", row.names=F)
 
